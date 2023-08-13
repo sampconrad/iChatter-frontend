@@ -1,8 +1,4 @@
 import { Message } from "graphql-ws";
-import {
-  ConversationPopulated,
-  MessagePopulated,
-} from "../../../backend/src/util/types";
 
 /**
  * Users
@@ -79,3 +75,45 @@ export interface MessageSubscriptionData {
     };
   };
 }
+
+export type ParticipantPopulated = {
+  id: string
+  hasSeenLatestMessage: boolean,
+  user: {
+      id: string,
+      username: string,
+      image: string,
+  },
+}
+
+export type ConversationPopulated = {
+  id: string,
+  updatedAt: Date
+  participants: Array<ParticipantPopulated>,
+  latestMessage: {
+    id: string
+    body: string
+    createdAt: Date
+    sender: {
+        id: true,
+        username: true,
+        image: true,
+    },
+  },
+}
+
+export type MessagePopulated = {
+  sender: {
+      id: true,
+      username: true,
+      image: true,
+  },
+}
+
+export interface SendMessageArguments {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  body: string;
+}
+

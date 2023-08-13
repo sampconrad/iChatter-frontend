@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import React, { useState } from "react";
 import { ObjectID } from "bson";
 import toast from "react-hot-toast";
-import { SendMessageArguments } from "../../../../../../backend/src/util/types";
+import { SendMessageArguments } from "../../../../util/types";
 import MessageOperations from "../../../../graphql/operations/message";
 import { MessagesData } from "../../../../util/types";
 

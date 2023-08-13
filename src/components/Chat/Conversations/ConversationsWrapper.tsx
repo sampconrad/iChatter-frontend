@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
-import { Box, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { Session } from "next-auth";
 import ConversationList from "./ConversationList";
 import ConversationOperations from "../../../graphql/operations/conversation";
@@ -11,7 +11,7 @@ import {
 import {
   ConversationPopulated,
   ParticipantPopulated,
-} from "../../../../../backend/src/util/types";
+} from "../../../util/types";
 import { cache, useEffect } from "react";
 import { useRouter } from "next/router";
 import SkeletonLoader from "../../common/SkeletonLoader";
@@ -36,7 +36,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
     error: conversationsError,
     loading: conversationsLoading,
     subscribeToMore,
-  } = useQuery<ConversationsData, null>(
+  } = useQuery<ConversationsData>(
     ConversationOperations.Queries.conversations
   );
 
@@ -45,7 +45,7 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
     { userId: string; conversationId: string }
   >(ConversationOperations.Mutations.markConversationAsRead);
 
-  useSubscription<ConversationUpdatedData, null>(
+  useSubscription<ConversationUpdatedData>(
     ConversationOperations.Subscriptions.conversationUpdated,
     {
       onData: ({ client, data }) => {
@@ -61,13 +61,13 @@ const ConversationsWrapper: React.FC<ConversationsWrapperProps> = ({
           updatedConversation.id === conversationId;
 
         if (currentlyViewingConversation) {
-          onViewConversation(conversationId, false);
+          onViewConversation(conversationId as string, false);
         }
       },
     }
   );
 
-  useSubscription<ConversationDeletedData, null>(
+  useSubscription<ConversationDeletedData>(
     ConversationOperations.Subscriptions.conversationDeleted,
     {
       onData: ({ client, data }) => {
