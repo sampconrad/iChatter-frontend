@@ -4,11 +4,14 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { createClient } from "graphql-ws";
 import { getSession } from "next-auth/react";
 
+const APOLLO_WSLINK = "ws://ichatter-backend-production.up.railway.app/graphql/subscriptions";
+const APOLLO_HTTPLINK = "http://ichatter-backend-production.up.railway.app/graphql"
+
 const wsLink =
   typeof window !== "undefined"
     ? new GraphQLWsLink(
         createClient({
-          url: `${process.env.APOLLO_WSLINK}`,
+          url: APOLLO_WSLINK,
           connectionParams: async () => ({
             session: await getSession(),
           }),
@@ -17,7 +20,7 @@ const wsLink =
     : null;
 
 const httpLink = new HttpLink({
-  uri: `${process.env.APOLLO_HTTPLINK}`,
+  uri: APOLLO_HTTPLINK,
   credentials: "include",
 });
 
