@@ -95,18 +95,24 @@ export type ConversationPopulated = {
     body: string
     createdAt: Date
     sender: {
-        id: true,
-        username: true,
-        image: true,
+        id: string,
+        username: string,
+        image: string,
     },
   },
 }
 
 export type MessagePopulated = {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  body: string;
+  createdAt: Date
+  updatedAt: Date
   sender: {
-      id: true,
-      username: true,
-      image: true,
+      id: string,
+      username: string,
+      image: string,
   },
 }
 

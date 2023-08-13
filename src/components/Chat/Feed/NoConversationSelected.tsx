@@ -1,12 +1,11 @@
-import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
-import React, { useContext } from "react";
-import { BiMessageSquareDots } from "react-icons/bi";
+import { Flex, Image, Stack, Text } from "@chakra-ui/react";
+import React from "react";
 import { ConversationsData } from "../../../util/types";
 import ConversationOperations from "../../../graphql/operations/conversation";
 import { useQuery } from "@apollo/client";
 
 const NoConversation: React.FC = () => {
-  const { data, loading, error } = useQuery<ConversationsData, null>(
+  const { data, loading, error } = useQuery<ConversationsData>(
     ConversationOperations.Queries.conversations
   );
 
